@@ -1,0 +1,14 @@
+aws-cdk-lib>=2.178.0,<3.0.0
+constructs>=10.0.0,<11.0.0
+# Bumped from 0.1.312 -> 0.1.316 (latest as of this fix). 0.1.312 was
+# previously pinned in the belief that it shipped the `s3vectors` module
+# (Amazon S3 Vectors support, needed for VECTOR_STORE_TYPE=S3_VECTORS), but
+# deployments against 0.1.312 fail with:
+#   ImportError: cannot import name 's3vectors' from
+#   'cdklabs.generative_ai_cdk_constructs'
+# 0.1.316 is confirmed to include the s3vectors submodule. This version also
+# has bedrock.KnowledgeBase renamed to bedrock.VectorKnowledgeBase, which
+# ecs_fargate_app/wa_genai_stack.py already uses. Before deploying, run
+# `pip install -r requirements.txt --break-system-packages` (or in your venv)
+# and `cdk synth` to confirm compatibility with your CDK CLI version.
+cdklabs.generative_ai_cdk_constructs==0.1.316
